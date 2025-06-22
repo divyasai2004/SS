@@ -1,6 +1,6 @@
 # 📘 SyllabusSeal
 
-SyllabusSeal is a beautiful and responsive web platform designed to help **BSc IT** and **BSc CS** students access crystal clear, semester-wise notes, upload resources, view feedback, and explore student guidance material — all in one place.
+SyllabusSeal is a beautiful and responsive web platform designed to help **TechUndergrads** students access crystal clear, semester-wise notes, upload resources, view feedback, and explore student guidance material — all in one place.
 
 ## 🚀 Features
 
