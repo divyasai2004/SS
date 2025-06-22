@@ -30,3 +30,35 @@ SyllabusSeal is a beautiful and responsive web platform designed to help **TechU
 
 ## 📂 Folder Structure
 
+SyllabusSeal/
+├── public/
+├── src/
+│ ├── assets/
+│ ├── components/
+│ ├── pages/
+│ ├── App.js
+│ ├── index.js
+├── package.json
+└── README.md
+
+---
+
+## 🔧 Installation & Running Locally
+
+```bash
+git clone https://github.com/divyasai2004/SyllabusSeal.git
+cd SyllabusSeal/frontend
+npm install
+npm start
+```
+---
+
+🙌 Acknowledgements
+Thanks to Mumbai University, NPTEL, and open-source resources like GeeksforGeeks and roadmap.sh for inspiration and support material.
+
+📜 License
+MIT License © 2025 Divyasai Ganti
+
+
+
+
