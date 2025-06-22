@@ -16,30 +16,21 @@ SyllabusSeal is a beautiful and responsive web platform designed to help **TechU
 
 ## 🛠️ Tech Stack
 
-| Layer       | Technology                     |
-|------------|----------------------------------|
-| Frontend   | React.js (CRA), CSS-in-JS       |
-| Routing    | React Router DOM                |
-| State Mgmt | React Hooks                     |
-| Styling    | Inline styles + Responsive CSS  |
-| Icons      | Emoji icons + Custom logos      |
-| Backend    | Node/Express (Optional/Planned) |
-| Hosting    | [Vercel](https://vercel.com/)   |
+| Layer       | Technology                          |
+|-------------|--------------------------------------|
+| Frontend    | React.js (CRA), CSS-in-JS           |
+| Routing     | React Router DOM                    |
+| State Mgmt  | React Hooks                         |
+| Styling     | Inline styles + Responsive CSS      |
+| Icons       | Emoji icons + Custom logos          |
+| Backend     | Node.js / Express.js (Planned/Optional) |
+| Database    | MongoDB (via Mongoose)              |
+
 
 ---
+## 🚀 Live Demo
 
-## 📂 Folder Structure
-
-SyllabusSeal/
-├── public/
-├── src/
-│ ├── assets/
-│ ├── components/
-│ ├── pages/
-│ ├── App.js
-│ ├── index.js
-├── package.json
-└── README.md
+🌐 [Visit SyllabusSeal on Vercel](https://your-vercel-url.vercel.app)
 
 ---
 
