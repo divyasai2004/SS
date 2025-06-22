@@ -30,7 +30,7 @@ SyllabusSeal is a beautiful and responsive web platform designed to help **TechU
 ---
 ## 🚀 Live Demo
 
-🌐 [Visit SyllabusSeal on Vercel](https://your-vercel-url.vercel.app)
+🌐 [Visit SyllabusSeal on Vercel]([https://your-vercel-url.vercel.app](https://syllabus-seal.vercel.app/))
 
 ---
 
