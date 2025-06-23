@@ -6,12 +6,10 @@ services:
     startCommand: "cd backend && gunicorn studymate.wsgi:application"
     envVars:
       - key: DJANGO_SECRET_KEY
-        value: django-insecure-&#=h&oa&*wyz)m#finccr@vh=0b5ofy_$zs*#xsh3hmh394^5x
+        value: your_key
       - key: MONGODB_URI
-        value: mongodb+srv://admin:Divyasai%402004@cluster0.8t6nzok.mongodb.net/studymate?retryWrites=true&w=majority&appName=Cluster0
+        value: your_mongo_uri
       - key: DEBUG
         value: "False"
       - key: ALLOWED_HOSTS
         value: studymate-backend.onrender.com
-      - key: PYTHONPATH
-        value: backend
