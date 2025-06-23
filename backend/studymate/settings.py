@@ -21,7 +21,7 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,studymate-backend-n321.onr
 
 # CORS settings (only allow frontend origin)
 CORS_ALLOWED_ORIGINS = [
-    "https://syllabus-seal.vercel.app"
+    "https://syllabusseal-ss.vercel.app"
 ]
 
 # Application definition

@@ -11,25 +11,23 @@ function Feedback() {
   };
 
   const handleSubmit = async e => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const { name, college_id, message } = form;
+    const { name, college_id, message } = form;
 
-  // Manual validation
-  if (!name.trim() || !college_id.trim() || !message.trim()) {
-    alert("Please fill in all fields before submitting.");
-    return;
-  }
+    if (!name.trim() || !college_id.trim() || !message.trim()) {
+      alert("Please fill in all fields before submitting.");
+      return;
+    }
 
-  try {
-    await axios.post('http://localhost:8000/api/feedback/', form);
-    navigate('/thankyou');
-  } catch (err) {
-    console.error("Error submitting feedback:", err);
-    alert("There was an error. Please try again later.");
-  }
-};
-
+    try {
+      await axios.post('https://studymate-backend-n321.onrender.com/api/feedback/', form);
+      navigate('/thankyou');
+    } catch (err) {
+      console.error("Error submitting feedback:", err);
+      alert("There was an error. Please try again later.");
+    }
+  };
 
   return (
     <div style={styles.container}>
@@ -67,7 +65,6 @@ function Feedback() {
         <button type="submit" style={styles.button}>Submit</button>
       </form>
 
-      {/* Media Query Styling */}
       <style>{`
         @media (max-width: 500px) {
           form {
@@ -124,16 +121,16 @@ const styles = {
   },
   button: {
     padding: '0.9rem 1.5rem',
-  fontSize: '1.05rem',
-  background: 'linear-gradient(to right, #00bcd4, #00acc1)',
-  color: '#fff',
-  border: 'none',
-  borderRadius: '10px',
-  cursor: 'pointer',
-  boxShadow: '0 4px 12px rgba(0, 188, 212, 0.3)',
-  transition: 'all 0.3s ease',
-  fontWeight: '600',
-  letterSpacing: '0.5px',
+    fontSize: '1.05rem',
+    background: 'linear-gradient(to right, #00bcd4, #00acc1)',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '10px',
+    cursor: 'pointer',
+    boxShadow: '0 4px 12px rgba(0, 188, 212, 0.3)',
+    transition: 'all 0.3s ease',
+    fontWeight: '600',
+    letterSpacing: '0.5px',
   }
 };
 

@@ -5,7 +5,7 @@ function FeedbackDisplay() {
   const [feedbacks, setFeedbacks] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/feedbacks/')
+    axios.get('https://studymate-backend-n321.onrender.com/api/feedbacks/')
       .then(res => setFeedbacks(res.data))
       .catch(err => console.error("Failed to fetch feedbacks", err));
   }, []);
@@ -84,63 +84,3 @@ const styles = {
 };
 
 export default FeedbackDisplay;
-
-
-
-
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-
-// function FeedbackDisplay() {
-//   const [feedbacks, setFeedbacks] = useState([]);
-
-//   useEffect(() => {
-//     axios.get('http://localhost:8000/api/feedbacks/')
-//       .then(res => {
-//         console.log("Feedbacks fetched: ", res.data);
-//         setFeedbacks(res.data);
-//       })
-//       .catch(err => {
-//         console.error("Failed to fetch feedbacks", err);
-//       });
-//   }, []);
-
-//   return (
-//     <div style={styles.container}>
-//       <h2 style={styles.heading}>📢 Student Feedback</h2>
-//       {feedbacks.length === 0 ? (
-//         <p>No feedback submitted yet.</p>
-//       ) : (
-//         feedbacks.map((fb, index) => (
-//           <div key={index} style={styles.card}>
-//             <h3>{fb.name} ({fb.college_id})</h3>
-//             <p>{fb.message}</p>
-//             <small>{fb.submitted_at}</small>
-//           </div>
-//         ))
-//       )}
-//     </div>
-//   );
-// }
-
-// const styles = {
-//   container: {
-//     padding: '2rem',
-//     backgroundColor: '#f9f9f9',
-//     minHeight: '100vh'
-//   },
-//   heading: {
-//     fontSize: '2rem',
-//     textAlign: 'center',
-//     marginBottom: '1.5rem'
-//   },
-//   card: {
-//     backgroundColor: '#fff',
-//     padding: '1rem',
-//     marginBottom: '1rem',
-//     borderRadius: '8px',
-//     boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-//   }
-// };
-
-// export default FeedbackDisplay;

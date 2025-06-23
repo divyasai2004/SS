@@ -29,7 +29,7 @@ function UploadNote() {
       data.append(key, formData[key]);
     });
 
-    axios.post('http://localhost:8000/api/upload-note/', data)
+    axios.post('https://studymate-backend-n321.onrender.com/api/upload-note/', data)
       .then(() => {
         setMessage('✅ Note uploaded successfully!');
         setFormData({ title: '', subject: '', semester: '', course: '', year: '', file: null });
@@ -150,17 +150,17 @@ const styles = {
   },
   button: {
     padding: '0.8rem 1.5rem',
-  fontSize: '1rem',
-  background: 'linear-gradient(135deg, #ffdde1, #ee9ca7)', // floral gradient
-  color: '#6a1b9a',
-  border: 'none',
-  borderRadius: '20px',
-  cursor: 'pointer',
-  fontWeight: '600',
-  fontFamily: '"Segoe UI", cursive, sans-serif',
-  boxShadow: '0 6px 16px rgba(255, 192, 203, 0.4)',
-  letterSpacing: '0.5px',
-  transition: 'all 0.3s ease'
+    fontSize: '1rem',
+    background: 'linear-gradient(135deg, #ffdde1, #ee9ca7)',
+    color: '#6a1b9a',
+    border: 'none',
+    borderRadius: '20px',
+    cursor: 'pointer',
+    fontWeight: '600',
+    fontFamily: '"Segoe UI", cursive, sans-serif',
+    boxShadow: '0 6px 16px rgba(255, 192, 203, 0.4)',
+    letterSpacing: '0.5px',
+    transition: 'all 0.3s ease'
   },
   message: {
     textAlign: 'center',
@@ -180,6 +180,3 @@ const styles = {
 };
 
 export default UploadNote;
-
-
-

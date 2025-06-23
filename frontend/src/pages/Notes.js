@@ -14,14 +14,14 @@ function Notes() {
   const role = localStorage.getItem('userRole');
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/notes/')
+    axios.get('https://studymate-backend-n321.onrender.com/api/notes/')
       .then(res => setNotes(res.data))
       .catch(err => console.error("Error fetching notes:", err));
   }, []);
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this note?")) {
-      axios.delete(`http://localhost:8000/api/notes/${id}/`)
+      axios.delete(`https://studymate-backend-n321.onrender.com/api/notes/${id}/`)
         .then(() => {
           setNotes(prev => prev.filter(note => note.id !== id));
         })
@@ -90,12 +90,12 @@ function Notes() {
                 <span style={styles.tag}>Sem {note.semester}</span>
               </p>
               <a
-                href={`http://localhost:8000${note.file_url}`}
+                href={`https://studymate-backend-n321.onrender.com${note.file_url}`}
                 target="_blank"
                 rel="noreferrer"
                 style={styles.download}
               >
-                📥 Download
+                Download
               </a>
               {role === 'admin' && note.id && (
                 <button onClick={() => handleDelete(note.id)} style={styles.deleteBtn}>
