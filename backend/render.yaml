@@ -15,22 +15,5 @@ services:
         value: "False"
       - key: ALLOWED_HOSTS
         value: studymate-backend-n321.onrender.com
-
-
-
-
-# services:
-#   - type: web
-#     name: studymate-backend
-#     env: python
-#     buildCommand: "pip install -r requirements.txt"
-#     startCommand: "cd backend && gunicorn studymate.wsgi:application"
-#     envVars:
-#       - key: DJANGO_SECRET_KEY
-#         value: your_key
-#       - key: MONGODB_URI
-#         value: your_mongo_uri
-#       - key: DEBUG
-#         value: "False"
-#       - key: ALLOWED_HOSTS
-#         value: studymate-backend.onrender.com
+      - key: PYTHONPATH         # 👈 Add this line
+        value: backend          # 👈 Tells Python to treat `backend/` as the root
