@@ -29,7 +29,7 @@ const Home = () => {
 
       <div style={styles.buttonContainer}>
         <button onClick={() => navigate('/notes')} style={styles.button}>View Notes</button>
-        <button onClick={() => navigate('/upload')} style={styles.button}> Upload Notes</button>
+        {/* <button onClick={() => navigate('/upload')} style={styles.button}> Upload Notes</button> */}
         <button onClick={() => navigate('/guide')} style={styles.button}> Student Guide</button>
         <button onClick={() => navigate('/feedback')} style={styles.button}> Give Feedback</button>
         <button onClick={() => navigate('/feedbacks')} style={styles.button}> View Feedback</button>
