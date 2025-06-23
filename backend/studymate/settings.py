@@ -12,11 +12,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-secret-key")
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
+
 # Hosting settings
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost").split(",")
-# CORS settings
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,studymate-backend-n321.onrender.com").split(",")
+
+# CORS settings (only allow frontend origin)
 CORS_ALLOWED_ORIGINS = [
     "https://syllabus-seal.vercel.app"
 ]
@@ -37,7 +40,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # For serving static files
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # For serving static files on Render
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -65,7 +68,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'studymate.wsgi.application'
 
-# Database (SQLite for now; switch to PostgreSQL or MongoDB in production if needed)
+# Default DB (can be replaced with PostgreSQL in production)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -73,12 +76,11 @@ DATABASES = {
     }
 }
 
-# MongoDB (via mongoengine)
+# MongoDB connection
 connect(
     db='studymate',
-    host=os.getenv("MONGODB_URI")
+    host=os.getenv("MONGODB_URI", "mongodb://localhost:27017/studymate")
 )
-
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -96,7 +98,7 @@ USE_TZ = True
 
 # Static & Media files
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Required by WhiteNoise on Render
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -104,5 +106,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# For SSL/HTTPS on Render
+# For SSL/HTTPS support behind reverse proxy (Render)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
