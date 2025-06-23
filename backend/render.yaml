@@ -2,8 +2,10 @@ services:
   - type: web
     name: studymate-backend
     env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "cd backend && gunicorn studymate.wsgi:application"
+    buildCommand: |
+      pip install -r backend/requirements.txt
+    startCommand: |
+      gunicorn studymate.wsgi:application --chdir backend
     envVars:
       - key: DJANGO_SECRET_KEY
         value: your_key
@@ -12,4 +14,23 @@ services:
       - key: DEBUG
         value: "False"
       - key: ALLOWED_HOSTS
-        value: studymate-backend.onrender.com
+        value: studymate-backend-n321.onrender.com
+
+
+
+
+# services:
+#   - type: web
+#     name: studymate-backend
+#     env: python
+#     buildCommand: "pip install -r requirements.txt"
+#     startCommand: "cd backend && gunicorn studymate.wsgi:application"
+#     envVars:
+#       - key: DJANGO_SECRET_KEY
+#         value: your_key
+#       - key: MONGODB_URI
+#         value: your_mongo_uri
+#       - key: DEBUG
+#         value: "False"
+#       - key: ALLOWED_HOSTS
+#         value: studymate-backend.onrender.com
