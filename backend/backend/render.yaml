@@ -1,0 +1,15 @@
+services:
+  type: web
+  name: studymate-backend
+  env: python
+  buildCommand: "pip install -r requirements.txt"
+  startCommand: "gunicorn studymate.wsgi:application"
+  envVars:
+  key: DJANGO_SECRET_KEY
+  value: django-insecure-&#=h&oa&*wyz)m#finccr@vh=0b5ofy_$zs*#xsh3hmh394^5x
+  key: MONGODB_URI
+  value: mongodb+srv://<username>:<password>@cluster0.xyz.mongodb.net/studymate?retryWrites=true&w=majority
+  key: DEBUG
+  value: "False"
+  key: ALLOWED_HOSTS
+  value: studymate-backend.onrender.com

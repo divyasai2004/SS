@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 from mongoengine import connect
 from dotenv import load_dotenv
+from corsheaders.defaults import default_headers
 
 # Load environment variables
 load_dotenv()
@@ -18,12 +19,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-secret-key")
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-# Hosts
+# Allowed Hosts
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,studymate-backend-n321.onrender.com").split(",")
 
 # CORS Configuration
 CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000,https://syllabusseal-ss.vercel.app").split(",")
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",               # Local dev
+    "https://syllabusseal-ss.vercel.app"   # Vercel frontend
+]
+
+# If you're using cookies/credentials:
+CORS_ALLOW_CREDENTIALS = True
+
+# Extra headers if needed
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "Access-Control-Allow-Origin",
+    "Content-Disposition"
+]
 
 # Application Definition
 INSTALLED_APPS = [
@@ -41,11 +54,11 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',            # ✅ Must be very first
+    'django.middleware.common.CommonMiddleware',        # ✅ Immediately after CORS
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -79,7 +92,7 @@ DATABASES = {
     }
 }
 
-# MongoDB connection (for additional document storage if used)
+# MongoDB (via mongoengine)
 connect(
     db='studymate',
     host=os.getenv("MONGODB_URI", "mongodb://localhost:27017/studymate")
@@ -99,22 +112,20 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, etc.)
+# Static files
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Media files - Using Cloudinary
+# Media files (Cloudinary)
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv("CLOUDINARY_CLOUD_NAME"),
     'API_KEY': os.getenv("CLOUDINARY_API_KEY"),
     'API_SECRET': os.getenv("CLOUDINARY_API_SECRET"),
 }
+MEDIA_URL = '/media/'
 
-MEDIA_URL = '/media/'  # Optional fallback
-
-# Default primary key field type
+# Primary key type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # HTTPS behind proxy (Render)
@@ -132,27 +143,24 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # from mongoengine import connect
 # from dotenv import load_dotenv
 
-# # Load environment variables from a .env file
+# # Load environment variables
 # load_dotenv()
 
 # # Base directory
 # BASE_DIR = Path(__file__).resolve().parent.parent
 
-# # SECURITY WARNING: keep the secret key used in production secret!
+# # Secret Key & Debug
 # SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-secret-key")
-
-# # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.getenv("DEBUG", "False") == "True"
 
-# ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,studymate-backend-n321.onrender.com").split(",")
+# # Hosts
+# ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,studymate-backend-n321.onrender.com").split(",")
 
-# # CORS settings
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",              # for local development
-#     "https://syllabusseal-ss.vercel.app"  # your deployed frontend
-# ]
+# # CORS Configuration
+# CORS_ALLOW_ALL_ORIGINS = False
+# CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "http://localhost:3000,https://syllabusseal-ss.vercel.app").split(",")
 
-# # Application definition
+# # Application Definition
 # INSTALLED_APPS = [
 #     'django.contrib.admin',
 #     'django.contrib.auth',
@@ -164,7 +172,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 #     'core',
 #     'corsheaders',
 #     'cloudinary',
-#     'cloudinary_storage'
+#     'cloudinary_storage',
 # ]
 
 # MIDDLEWARE = [
@@ -198,7 +206,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # WSGI_APPLICATION = 'studymate.wsgi.application'
 
-# # Default database (SQLite)
+# # SQLite Database (default)
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -206,13 +214,13 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 #     }
 # }
 
-# # MongoDB connection
+# # MongoDB connection (for additional document storage if used)
 # connect(
 #     db='studymate',
 #     host=os.getenv("MONGODB_URI", "mongodb://localhost:27017/studymate")
 # )
 
-# # Password validation
+# # Password Validators
 # AUTH_PASSWORD_VALIDATORS = [
 #     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
 #     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -226,24 +234,24 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # USE_I18N = True
 # USE_TZ = True
 
-# # Static files
+# # Static files (CSS, JavaScript, etc.)
 # STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# # Media files using Cloudinary
+# # Media files - Using Cloudinary
 # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# # Cloudinary settings
 # CLOUDINARY_STORAGE = {
 #     'CLOUD_NAME': os.getenv("CLOUDINARY_CLOUD_NAME"),
 #     'API_KEY': os.getenv("CLOUDINARY_API_KEY"),
 #     'API_SECRET': os.getenv("CLOUDINARY_API_SECRET"),
 # }
 
-# MEDIA_URL = '/media/'  # Needed for backwards compatibility if any old usage
+# MEDIA_URL = '/media/'  # Optional fallback
 
-# # Primary key type
+# # Default primary key field type
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# # SSL/HTTPS support on Render
+# # HTTPS behind proxy (Render)
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
