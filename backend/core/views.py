@@ -7,6 +7,8 @@ from django.conf import settings
 import os
 from bson import ObjectId
 from rest_framework import status
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 
 @api_view(['GET'])
 def get_notes(request):
@@ -59,15 +61,9 @@ def upload_note(request):
     if not file:
         return Response({"error": "No file uploaded"}, status=400)
 
-    notes_dir = os.path.join(settings.MEDIA_ROOT, 'notes')
-    os.makedirs(notes_dir, exist_ok=True)
-    file_path = os.path.join(notes_dir, file.name)
-
-    with open(file_path, 'wb+') as destination:
-        for chunk in file.chunks():
-            destination.write(chunk)
-
-    file_url = settings.MEDIA_URL + 'notes/' + file.name
+    # Upload to Cloudinary via Django's default storage
+    path = default_storage.save(f"notes/{file.name}", ContentFile(file.read()))
+    file_url = default_storage.url(path)
 
     note = Note(
         title=title,
@@ -79,7 +75,7 @@ def upload_note(request):
     )
     note.save()
 
-    return Response({"message": "Note uploaded successfully!"})
+    return Response({"message": "Note uploaded successfully!", "file_url": file_url})
 
 @api_view(['DELETE'])
 def delete_note(request, note_id):

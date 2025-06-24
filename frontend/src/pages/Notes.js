@@ -90,11 +90,13 @@ function Notes() {
                 <span style={styles.tag}>Sem {note.semester}</span>
               </p>
               <a
-                href={`https://studymate-backend-n321.onrender.com${note.file_url}`}
-                target="_blank"
-                rel="noreferrer"
-                style={styles.download}
-              >
+  href={note.file_url}
+  target="_blank"
+  rel="noreferrer"
+  style={styles.download}
+  download
+>
+
                 Download
               </a>
               {role === 'admin' && note.id && (
