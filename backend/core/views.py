@@ -90,3 +90,11 @@ def delete_note(request, note_id):
     except Note.DoesNotExist:
         return Response({"error": "Note not found"}, status=404)
 
+@api_view(['DELETE'])
+def delete_feedback_by_id(request, feedback_id):
+    try:
+        feedback = Feedback.objects.get(id=feedback_id)
+        feedback.delete()
+        return Response({"message": "Feedback deleted successfully!"})
+    except Feedback.DoesNotExist:
+        return Response({"error": "Feedback not found"}, status=404)
