@@ -6,6 +6,8 @@ urlpatterns = [
     path('feedback/', views.submit_feedback),
     path('upload-note/', views.upload_note),
     path('feedbacks/', views.get_feedbacks), 
-    path('notes/<str:note_id>/', views.delete_note),  
+    path('notes/<str:note_id>/', views.delete_note), 
+    path('api/delete-feedbacks/', views.delete_feedbacks),
+ 
 
 ]
