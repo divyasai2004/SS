@@ -9,6 +9,7 @@ from bson import ObjectId
 from rest_framework import status
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
+from cloudinary.uploader import upload
 
 @api_view(['GET'])
 def get_notes(request):
@@ -61,9 +62,12 @@ def upload_note(request):
     if not file:
         return Response({"error": "No file uploaded"}, status=400)
 
-    # Upload to Cloudinary via Django's default storage
-    path = default_storage.save(f"notes/{file.name}", ContentFile(file.read()))
-    file_url = default_storage.url(path)
+    # ✅ Upload directly to Cloudinary as raw file (PDF/DOCX/etc.)
+    try:
+        uploaded_file = upload(file, resource_type="raw")
+        file_url = uploaded_file.get("secure_url")
+    except Exception as e:
+        return Response({"error": f"Upload to Cloudinary failed: {str(e)}"}, status=500)
 
     note = Note(
         title=title,
