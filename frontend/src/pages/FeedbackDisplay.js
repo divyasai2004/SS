@@ -21,7 +21,7 @@ function FeedbackDisplay() {
     if (!confirm) return;
 
     try {
-      await axios.delete(`https://studymate-backend-n321.onrender.com/api/delete-feedback/${id}/`);
+      await axios.delete(`https://studymate-backend-n321.onrender.com/api/delete-feedback/${id}`);
       fetchFeedbacks(); // refresh after delete
     } catch (err) {
       console.error("Delete failed", err);
