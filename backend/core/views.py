@@ -42,6 +42,7 @@ def get_feedbacks(request):
     data = []
     for fb in feedbacks:
         data.append({
+            "id": str(fb.id),
             "name": fb.name,
             "college_id": fb.college_id,
             "message": fb.message,
