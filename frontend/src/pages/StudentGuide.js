@@ -1,16 +1,15 @@
 import React from 'react';
-import mediumIcon from '../assets/medium-icon.png';     
-import linkedinIcon from '../assets/linkedin-icon.png'; 
+import mediumIcon from '../assets/medium-icon.png';
+import linkedinIcon from '../assets/linkedin-icon.png';
 import portfolioIcon from '../assets/portfolio-icon.png';
 import guideLogo from '../assets/student-guide-logo.png'; // 🧭 Your Student Guide logo
 
-
 const StudentGuide = () => {
   return (
-   <div style={styles.container}>
-  <img src={guideLogo} alt="Student Guide Logo" style={styles.logo} />
-  <h2 style={styles.heading}> Student Guide</h2>
-      <p style={styles.subtext}>Helpful resources, notices, and external links curated just for you.</p>
+    <div style={styles.container}>
+      <img src={guideLogo} alt="Student Guide Logo" style={styles.logo} />
+      <h2 style={styles.heading}>Student Guide</h2>
+      <p style={styles.subtext}>Helpful resources, updates, and external links curated just for you.</p>
 
       <ul style={styles.list}>
         <li>
@@ -25,23 +24,23 @@ const StudentGuide = () => {
         </li>
         <li>
           <a href="https://www.geeksforgeeks.org/" target="_blank" rel="noopener noreferrer" style={styles.link}>
-             ➟ GeeksforGeeks – Programming Tutorials
+            ➟ GeeksforGeeks – Programming Tutorials
           </a>
         </li>
         <li>
           <a href="https://roadmap.sh/" target="_blank" rel="noopener noreferrer" style={styles.link}>
-           ➟ Developer Roadmaps
+            ➟ Developer Roadmaps
           </a>
         </li>
         <li>
           <a href="https://github.com/topics/final-year-project" target="_blank" rel="noopener noreferrer" style={styles.link}>
-           📂 Last Year Projects (GitHub)
+            📂 Last Year Projects (GitHub)
           </a>
         </li>
       </ul>
 
       <div style={styles.officials}>
-        <p style={styles.officialText}><strong></strong></p>
+        <p style={styles.officialText}><strong>Wanna link up</strong> ?</p>
         <div style={styles.iconRow}>
           <a href="https://medium.com/@divyasaiganti" target="_blank" rel="noreferrer">
             <img src={mediumIcon} alt="Medium Blog" style={styles.icon} />
@@ -54,6 +53,32 @@ const StudentGuide = () => {
           </a>
         </div>
       </div>
+
+      {/* Custom CSS for hover and responsive behavior */}
+      <style>{`
+        a:hover {
+          background-color: #e0f2f1 !important;
+          color: #004d40 !important;
+        }
+
+        img:hover {
+          transform: scale(1.1);
+        }
+
+        @media (max-width: 600px) {
+          ul {
+            padding: 0 1rem;
+          }
+
+          .iconRow {
+            gap: 1.5rem !important;
+          }
+
+          h2 {
+            font-size: 2rem !important;
+          }
+        }
+      `}</style>
     </div>
   );
 };
@@ -65,10 +90,17 @@ const styles = {
     padding: '2rem',
     color: '#2c3e50'
   },
+  logo: {
+    width: '80px',
+    height: '80px',
+    objectFit: 'contain',
+    display: 'block',
+    margin: '0 auto 1rem'
+  },
   heading: {
     fontSize: '2.5rem',
     textAlign: 'center',
-    marginBottom: '1rem'
+    marginBottom: '0.5rem'
   },
   subtext: {
     fontSize: '1.1rem',
@@ -114,19 +146,9 @@ const styles = {
   icon: {
     width: '40px',
     height: '40px',
-    transition: 'transform 0.2s ease',
+    transition: 'transform 0.3s ease',
     cursor: 'pointer'
-  },
-  logo: {
-  width: '80px',
-  height: '80px',
-  objectFit: 'contain',
-  display: 'block',
-  margin: '0 auto 1rem'
-}
-
-  
+  }
 };
-
 
 export default StudentGuide;

@@ -13,19 +13,23 @@ const Home = () => {
       <img src={logo} alt="SyllabusSeal Logo" style={styles.logo} />
       <h1 style={styles.heading}>SyllabusSeal</h1>
       <p style={styles.description}>
-        Empowering <strong>BSc IT</strong> & <strong>CS students</strong> with crystal clear, semester wise notes!{' '}
-        <strong>
-          <Typewriter
-            words={['Seal your success, one subject at a time.']}
-            loop={0}
-            cursor
-            cursorStyle="|"
-            typeSpeed={50}
-            deleteSpeed={0}
-            delaySpeed={2000}
-          />
-        </strong>
-      </p>
+  Empowering <strong>BSc IT</strong> & <strong>CS students</strong> with crystal-clear notes!
+</p>
+
+<p style={styles.typewriterLine}>
+  <strong>
+    <Typewriter
+      words={['Seal your success, one subject at a time.']}
+      loop={0}
+      cursor
+      cursorStyle="|"
+      typeSpeed={50}
+      deleteSpeed={0}
+      delaySpeed={2000}
+    />
+  </strong>
+</p>
+
 
       <div style={styles.buttonContainer}>
         <button onClick={() => navigate('/notes')} style={styles.button}>View Notes</button>
@@ -75,6 +79,17 @@ const styles = {
     zIndex: 1,
     position: 'relative'
   },
+  typewriterLine: {
+  fontSize: '1.4rem',
+  color: '#1a237e',
+  marginTop: '0.5rem',
+  marginBottom: '2.9rem',
+  fontWeight: '400',
+  zIndex: 1,
+  position: 'relative',
+  letterSpacing: '0.3px',
+},
+
   description: {
     fontSize: '1.3rem',
     marginBottom: '2.5rem',

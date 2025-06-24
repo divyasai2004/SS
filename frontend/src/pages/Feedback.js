@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Feedback() {
   const [form, setForm] = useState({ name: '', college_id: '', message: '' });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = e => {
@@ -20,12 +21,16 @@ function Feedback() {
       return;
     }
 
+    setLoading(true);
+
     try {
       await axios.post('https://studymate-backend-n321.onrender.com/api/feedback/', form);
       navigate('/thankyou');
     } catch (err) {
       console.error("Error submitting feedback:", err);
       alert("There was an error. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -36,7 +41,7 @@ function Feedback() {
 
         <input
           name="name"
-          placeholder="👤 Your Name"
+          placeholder="Your lovely name"
           value={form.name}
           onChange={handleChange}
           required
@@ -54,7 +59,7 @@ function Feedback() {
 
         <textarea
           name="message"
-          placeholder="📝 We’d love to hear your thoughts..."
+          placeholder="We’d love to hear your thoughts..."
           value={form.message}
           onChange={handleChange}
           required
@@ -62,7 +67,13 @@ function Feedback() {
           style={styles.textarea}
         />
 
-        <button type="submit" style={styles.button}>Submit</button>
+        <button type="submit" style={styles.button} disabled={loading}>
+          {loading ? (
+            <span className="spinner" style={styles.spinner}></span>
+          ) : (
+            'Submit'
+          )}
+        </button>
       </form>
 
       <style>{`
@@ -72,8 +83,24 @@ function Feedback() {
           }
         }
 
-        button:hover {
-          background-color: #0097a7;
+        .spinner {
+          width: 20px;
+          height: 20px;
+          border: 3px solid #ffffff;
+          border-top: 3px solid #00acc1;
+          border-radius: 50%;
+          animation: spin 0.9s linear infinite;
+          display: inline-block;
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        button:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
         }
       `}</style>
     </div>
@@ -131,6 +158,12 @@ const styles = {
     transition: 'all 0.3s ease',
     fontWeight: '600',
     letterSpacing: '0.5px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  spinner: {
+    margin: '0 auto'
   }
 };
 

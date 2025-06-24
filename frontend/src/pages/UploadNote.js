@@ -11,6 +11,7 @@ function UploadNote() {
     file: null,
   });
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false); // 🌀 loader state
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -23,6 +24,8 @@ function UploadNote() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
+    setMessage('');
 
     const data = new FormData();
     Object.keys(formData).forEach((key) => {
@@ -36,7 +39,8 @@ function UploadNote() {
       })
       .catch(() => {
         setMessage('❌ Upload failed. Please try again.');
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const role = localStorage.getItem('userRole');
@@ -54,62 +58,47 @@ function UploadNote() {
       <div style={styles.card}>
         <h2 style={styles.title}>📤 Upload a New Note</h2>
         <form onSubmit={handleSubmit} encType="multipart/form-data" style={styles.form}>
-          <input
-            type="text"
-            name="title"
-            placeholder="📝 Title"
-            value={formData.title}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
-
+          <input type="text" name="title" placeholder="📝 Title" value={formData.title} onChange={handleChange} required style={styles.input} />
           <select name="course" onChange={handleChange} value={formData.course} required style={styles.input}>
             <option value="">🎓 Select Course</option>
             <option value="BSc IT">BSc IT</option>
             <option value="BSc CS">BSc CS</option>
           </select>
-
           <select name="year" onChange={handleChange} value={formData.year} required style={styles.input}>
             <option value="">📅 Select Year</option>
             <option value="FY">First Year</option>
             <option value="SY">Second Year</option>
             <option value="TY">Third Year</option>
           </select>
+          <input type="text" name="subject" placeholder="📘 Subject" value={formData.subject} onChange={handleChange} required style={styles.input} />
+          <input type="number" name="semester" placeholder="📑 Semester (1-6)" value={formData.semester} onChange={handleChange} required style={styles.input} />
+          <input type="file" name="file" accept=".pdf" onChange={handleChange} required style={styles.input} />
 
-          <input
-            type="text"
-            name="subject"
-            placeholder="📘 Subject"
-            value={formData.subject}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
+          <button type="submit" style={{ ...styles.button, opacity: loading ? 0.6 : 1 }} disabled={loading}>
+            {loading ? 'Uploading...' : '🚀 Upload Note'}
+          </button>
 
-          <input
-            type="number"
-            name="semester"
-            placeholder="📑 Semester (e.g., 1-6)"
-            value={formData.semester}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
-
-          <input
-            type="file"
-            name="file"
-            accept=".pdf"
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
-
-          <button type="submit" style={styles.button}>🚀 Upload Note</button>
+          {loading && <div className="spinner" style={styles.spinner}></div>}
         </form>
         {message && <p style={styles.message}>{message}</p>}
       </div>
+
+      {/* Spinner styles */}
+      <style>{`
+        .spinner {
+          margin: 1rem auto 0;
+          border: 5px solid #eee;
+          border-top: 5px solid #9c27b0;
+          border-radius: 50%;
+          width: 36px;
+          height: 36px;
+          animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 }
@@ -176,6 +165,9 @@ const styles = {
     backgroundColor: '#fff3f3',
     color: '#d63031',
     minHeight: '100vh',
+  },
+  spinner: {
+    margin: '0 auto',
   }
 };
 

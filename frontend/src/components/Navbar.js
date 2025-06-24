@@ -44,7 +44,7 @@ const Navbar = () => {
         <button onClick={() => { handleUploadAccess(); setMenuOpen(false); }}>Upload</button>
         {role && (
           <button onClick={() => { handleLogout(); setMenuOpen(false); }}>
-            🚪 Logout ({role})
+            Logout ({role})
           </button>
         )}
       </div>
@@ -90,7 +90,7 @@ const Navbar = () => {
         }
 
         .navbar-links button:last-of-type {
-          background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+          background: transparent;
           color: #4a148c;
           padding: 8px 16px;
           border-radius: 10px;
@@ -122,98 +122,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
-
-
-// import { Link, useNavigate } from 'react-router-dom';
-
-// const Navbar = () => {
-//   const role = localStorage.getItem('userRole');
-//   const navigate = useNavigate();
-
-//   const handleLogout = () => {
-//     localStorage.removeItem('userRole');
-//     navigate('/');
-//   };
-
-//   const handleUploadAccess = () => {
-//     if (role === 'admin') {
-//       navigate('/upload');
-//     } else {
-//       const password = prompt("Enter admin password:");
-//       if (password === 'admin123') {
-//         localStorage.setItem('userRole', 'admin');
-//         alert('Admin access granted');
-//         navigate('/upload');
-//       } else {
-//         alert('❌ Incorrect password. Access denied.');
-//       }
-//     }
-//   };
-
-//   return (
-//     <nav style={styles.navbar}>
-//       <div style={styles.links}>
-//         <Link to="/" style={styles.link}>Home</Link>
-//         <Link to="/notes" style={styles.link}>Notes</Link>
-//         <Link to="/feedback" style={styles.link}>Feedback</Link>
-//         <button onClick={handleUploadAccess} style={styles.uploadBtn}>Upload</button>
-//       </div>
-//       {role && (
-//         <button onClick={handleLogout} style={styles.logoutBtn}>
-//           🚪 Logout ({role})
-//         </button>
-//       )}
-//     </nav>
-//   );
-// };
-
-// const styles = {
-//   navbar: {
-//     background: 'linear-gradient(to right, #e0f7fa, #fce4ec)',
-//     padding: '10px 20px',
-//     display: 'flex',
-//     justifyContent: 'space-between',
-//     alignItems: 'center',
-//     boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-//   },
-//   links: {
-//     display: 'flex',
-//     alignItems: 'center',
-//     gap: '20px',
-//   },
-//   link: {
-//     textDecoration: 'none',
-//     color: '#2c3e50',
-//     fontWeight: '500',
-//     fontSize: '1rem',
-//   },
-//   uploadBtn: {
-//     background: 'none',
-//     border: 'none',
-//     color: '#1976d2',
-//     fontWeight: '500',
-//     fontSize: '1rem',
-//     cursor: 'pointer',
-//     textDecoration: 'underline',
-//   },
-//   logoutBtn: {
-//   background: 'linear-gradient(to right, #fbc2eb, #a6c1ee)', // Soft floral gradient
-//   border: 'none',
-//   color: '#4a148c', // Deep orchid text
-//   padding: '8px 16px',
-//   borderRadius: '10px',
-//   cursor: 'pointer',
-//   fontWeight: '600',
-//   boxShadow: '0 4px 10px rgba(255, 182, 193, 0.3)',
-//   transition: 'all 0.3s ease',
-// }
-
-// };
-
-// export default Navbar;
-
-
 
 

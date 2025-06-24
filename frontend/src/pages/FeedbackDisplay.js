@@ -3,6 +3,8 @@ import axios from 'axios';
 
 function FeedbackDisplay() {
   const [feedbacks, setFeedbacks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [deletingId, setDeletingId] = useState(null);
 
   const isAdmin = localStorage.getItem("userRole") === "admin";
 
@@ -10,10 +12,16 @@ function FeedbackDisplay() {
     fetchFeedbacks();
   }, []);
 
-  const fetchFeedbacks = () => {
-    axios.get('https://studymate-backend-n321.onrender.com/api/feedbacks/')
-      .then(res => setFeedbacks(res.data))
-      .catch(err => console.error("Failed to fetch feedbacks", err));
+  const fetchFeedbacks = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get('https://studymate-backend-n321.onrender.com/api/feedbacks/');
+      setFeedbacks(res.data);
+    } catch (err) {
+      console.error("Failed to fetch feedbacks", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDelete = async (id) => {
@@ -21,11 +29,14 @@ function FeedbackDisplay() {
     if (!confirm) return;
 
     try {
+      setDeletingId(id);
       await axios.delete(`https://studymate-backend-n321.onrender.com/api/delete-feedback/${id}`);
-      fetchFeedbacks(); // refresh after delete
+      fetchFeedbacks();
     } catch (err) {
       console.error("Delete failed", err);
       alert("Something went wrong.");
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -33,7 +44,11 @@ function FeedbackDisplay() {
     <div style={styles.container}>
       <h2 style={styles.heading}>Student Feedback ❤️</h2>
 
-      {feedbacks.length === 0 ? (
+      {loading ? (
+        <div style={styles.loaderContainer}>
+          <div className="loader"></div>
+        </div>
+      ) : feedbacks.length === 0 ? (
         <p style={styles.noFeedback}>No feedback submitted yet.</p>
       ) : (
         <div style={styles.grid}>
@@ -42,20 +57,57 @@ function FeedbackDisplay() {
               <h3 style={styles.name}>
                 👤 {fb.name} <span style={styles.id}>({fb.college_id})</span>
               </h3>
-              <p style={styles.message}> {fb.message}</p>
-              <small style={styles.time}> {new Date(fb.submitted_at).toLocaleString()}</small>
+              <p style={styles.message}>📝 {fb.message}</p>
+              <small style={styles.time}>🕒 {new Date(fb.submitted_at).toLocaleString()}</small>
               {isAdmin && (
                 <button
                   style={styles.deleteBtn}
                   onClick={() => handleDelete(fb._id || fb.id)}
+                  disabled={deletingId === (fb._id || fb.id)}
                 >
-                  🗑️ Delete
+                  {deletingId === (fb._id || fb.id) ? (
+                    <span className="mini-loader"></span>
+                  ) : (
+                    '🗑️ Delete'
+                  )}
                 </button>
               )}
             </div>
           ))}
         </div>
       )}
+
+      <style>{`
+        .loader {
+          width: 40px;
+          height: 40px;
+          border: 5px solid #eee;
+          border-top: 5px solid #00acc1;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin: 3rem auto;
+        }
+
+        .mini-loader {
+          width: 16px;
+          height: 16px;
+          border: 2px solid #fff;
+          border-top: 2px solid #e74c3c;
+          border-radius: 50%;
+          animation: spin 0.8s linear infinite;
+          display: inline-block;
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        button:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      `}</style>
     </div>
   );
 }
@@ -76,6 +128,12 @@ const styles = {
     textAlign: 'center',
     fontStyle: 'italic',
     color: '#777'
+  },
+  loaderContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '40vh'
   },
   grid: {
     display: 'grid',
@@ -125,27 +183,40 @@ export default FeedbackDisplay;
 
 
 
-
-
-
-
-
-
 // import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 
 // function FeedbackDisplay() {
 //   const [feedbacks, setFeedbacks] = useState([]);
 
+//   const isAdmin = localStorage.getItem("userRole") === "admin";
+
 //   useEffect(() => {
+//     fetchFeedbacks();
+//   }, []);
+
+//   const fetchFeedbacks = () => {
 //     axios.get('https://studymate-backend-n321.onrender.com/api/feedbacks/')
 //       .then(res => setFeedbacks(res.data))
 //       .catch(err => console.error("Failed to fetch feedbacks", err));
-//   }, []);
+//   };
+
+//   const handleDelete = async (id) => {
+//     const confirm = window.confirm("Are you sure you want to delete this feedback?");
+//     if (!confirm) return;
+
+//     try {
+//       await axios.delete(`https://studymate-backend-n321.onrender.com/api/delete-feedback/${id}`);
+//       fetchFeedbacks(); // refresh after delete
+//     } catch (err) {
+//       console.error("Delete failed", err);
+//       alert("Something went wrong.");
+//     }
+//   };
 
 //   return (
 //     <div style={styles.container}>
-//       <h2 style={styles.heading}>Student Feedback❤️</h2>
+//       <h2 style={styles.heading}>Student Feedback ❤️</h2>
 
 //       {feedbacks.length === 0 ? (
 //         <p style={styles.noFeedback}>No feedback submitted yet.</p>
@@ -156,8 +227,16 @@ export default FeedbackDisplay;
 //               <h3 style={styles.name}>
 //                 👤 {fb.name} <span style={styles.id}>({fb.college_id})</span>
 //               </h3>
-//               <p style={styles.message}>📝 {fb.message}</p>
-//               <small style={styles.time}>🕒 {new Date(fb.submitted_at).toLocaleString()}</small>
+//               <p style={styles.message}> {fb.message}</p>
+//               <small style={styles.time}> {new Date(fb.submitted_at).toLocaleString()}</small>
+//               {isAdmin && (
+//                 <button
+//                   style={styles.deleteBtn}
+//                   onClick={() => handleDelete(fb._id || fb.id)}
+//                 >
+//                   🗑️ Delete
+//                 </button>
+//               )}
 //             </div>
 //           ))}
 //         </div>
@@ -193,7 +272,7 @@ export default FeedbackDisplay;
 //     padding: '1.2rem',
 //     borderRadius: '12px',
 //     boxShadow: '0 6px 16px rgba(0,0,0,0.1)',
-//     transition: 'transform 0.2s ease',
+//     position: 'relative',
 //   },
 //   name: {
 //     fontSize: '1.1rem',
@@ -213,7 +292,25 @@ export default FeedbackDisplay;
 //   time: {
 //     fontSize: '0.85rem',
 //     color: '#888'
+//   },
+//   deleteBtn: {
+//     marginTop: '10px',
+//     padding: '6px 12px',
+//     fontSize: '0.85rem',
+//     backgroundColor: '#e74c3c',
+//     color: '#fff',
+//     border: 'none',
+//     borderRadius: '6px',
+//     cursor: 'pointer',
+//     transition: '0.3s',
 //   }
 // };
 
 // export default FeedbackDisplay;
+
+
+
+
+
+
+
