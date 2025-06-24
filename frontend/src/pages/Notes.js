@@ -92,13 +92,12 @@ function Notes() {
               <a
   href={note.file_url}
   target="_blank"
-  rel="noreferrer"
+  rel="noopener noreferrer"
   style={styles.download}
-  download
 >
+  Download
+</a>
 
-                Download
-              </a>
               {role === 'admin' && note.id && (
                 <button onClick={() => handleDelete(note.id)} style={styles.deleteBtn}>
                   ❌ Delete
