@@ -28,7 +28,9 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="brand">SyllabusSeal</div>
+      <div className="brand">
+        <span className="gradient-text">SyllabusSeal</span>
+      </div>
 
       <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? '✕' : '☰'}
@@ -51,20 +53,24 @@ const Navbar = () => {
 
       <style>{`
         .navbar {
-          background: linear-gradient(to right, #e0f7fa, #fce4ec);
+          background: linear-gradient(to right,rgb(212, 237, 241),rgb(228, 240, 241));
           padding: 10px 20px;
           display: flex;
           justify-content: space-between;
           align-items: center;
           flex-wrap: wrap;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
           position: relative;
         }
 
         .brand {
-          font-size: 1.5rem;
+          font-size: 1.7rem;
           font-weight: 700;
-          color: #2c3e50;
+        }
+
+        .gradient-text {
+          background: linear-gradient(to right, rgb(2, 12, 27), rgb(45, 182, 209));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
 
         .hamburger {
@@ -81,9 +87,9 @@ const Navbar = () => {
 
         .navbar-links a, .navbar-links button {
           text-decoration: none;
-          color: #2c3e50;
-          font-weight: 500;
-          font-size: 1rem;
+          color:rgb(25, 4, 81);
+          font-weight: 600;
+          font-size: 1.1rem;
           background: none;
           border: none;
           cursor: pointer;
@@ -91,10 +97,10 @@ const Navbar = () => {
 
         .navbar-links button:last-of-type {
           background: transparent;
-          color: #4a148c;
+          color:rgb(36, 5, 77);
           padding: 8px 16px;
           border-radius: 10px;
-          box-shadow: 0 4px 10px rgba(255, 182, 193, 0.3);
+          box-shadow: 0 4px 10px rgba(128, 197, 216, 0.3);
           font-weight: 600;
         }
 
