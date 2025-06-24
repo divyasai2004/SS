@@ -28,18 +28,22 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost,127.0.0.1,studymate-backen
 
 # CORS Configuration
 CORS_ALLOW_ALL_ORIGINS = False
+
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",               # Local dev
-    "https://syllabusseal-ss.vercel.app"   # Vercel frontend
+    "http://localhost:3000",
+    "https://syllabusseal-ss.vercel.app",
+    "https://syllabusseal-kbzgq5cz1-divyasais-projects.vercel.app"  # ✅ Fixed comma issue
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 
-# Extra headers if needed
 CORS_ALLOW_HEADERS = list(default_headers) + [
     "Access-Control-Allow-Origin",
-    "Content-Disposition"
+    "Content-Disposition",
+    "Content-Type",               # ✅ Required for POST/PUT
+    "Authorization",              # ✅ If using auth tokens
 ]
+
 
 # Application Definition
 INSTALLED_APPS = [
