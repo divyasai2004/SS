@@ -387,7 +387,7 @@ const styles = {
     minHeight: '100vh',
     textAlign: 'center',
     overflow: 'hidden',
-    background: 'linear-gradient(135deg, rgb(218, 235, 238) 0%, #ffffff 50%, rgb(240, 248, 255) 100%)',
+    background: 'linear-gradient(135deg, rgb(218, 235, 238) 0%,rgb(224, 242, 245) 50%, rgb(240, 248, 255) 100%)',
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
   },
   
