@@ -67,6 +67,9 @@ MONGODB_URI=your_mongo_connection_string
 PORT=5000
 ```
 
+📜 License
+MIT License © 2025 Divyasai Ganti
+
 
 
 
