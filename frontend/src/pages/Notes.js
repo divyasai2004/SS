@@ -149,36 +149,39 @@ function Notes() {
           <div style={styles.grid}>
             {filteredNotes.map((note, index) => (
               <div key={index} style={styles.card} className="notes-card">
-                <div style={styles.cardHeader}>
-                  <h4 style={styles.title}>{note.title.toUpperCase()}</h4>
-                </div>
-                
-                <div style={styles.cardContent}>
-                  <div style={styles.subjectContainer}>
-                    <p style={styles.subject}>{note.subject}</p>
+                <div style={styles.cardInner}>
+                  {/* <div style={styles.cardHeader}>
+                    <h4 style={styles.title}>{note.title.toUpperCase()}</h4>
+                  </div> */}
+                  
+                  <div style={styles.cardContent}>
+                    <h4 style={styles.title}>{note.title.toUpperCase()}</h4>                    
+                    <div style={styles.subjectContainer}>
+                      <p style={styles.subject}>{note.subject}</p>
+                    </div>
+                    <div style={styles.tagsContainer}>
+                      <span style={styles.tag}>{note.course}</span>
+                      <span style={styles.tag}>{note.year}</span>
+                      <span style={styles.tag}>Sem {note.semester}</span>
+                    </div>
                   </div>
-                  <div style={styles.tagsContainer}>
-                    <span style={styles.tag}>{note.course}</span>
-                    <span style={styles.tag}>{note.year}</span>
-                    <span style={styles.tag}>Sem {note.semester}</span>
+
+                  <div style={styles.cardActions}>
+                    <a href={note.file_url} target="_blank" rel="noopener noreferrer" style={styles.download}>
+                      <span style={styles.downloadIcon}>↓</span>
+                      View & Download
+                    </a>
+
+                    {role === 'admin' && note.id && (
+                      <button 
+                        onClick={() => handleDelete(note.id)} 
+                        style={styles.deleteBtn} 
+                        disabled={deletingId === note.id}
+                      >
+                        {deletingId === note.id ? <span className="mini-loader" /> : 'Delete'}
+                      </button>
+                    )}
                   </div>
-                </div>
-
-                <div style={styles.cardActions}>
-                  <a href={note.file_url} target="_blank" rel="noopener noreferrer" style={styles.download}>
-                    <span style={styles.downloadIcon}>↓</span>
-                    View & Download
-                  </a>
-
-                  {role === 'admin' && note.id && (
-                    <button 
-                      onClick={() => handleDelete(note.id)} 
-                      style={styles.deleteBtn} 
-                      disabled={deletingId === note.id}
-                    >
-                      {deletingId === note.id ? <span className="mini-loader" /> : 'Delete'}
-                    </button>
-                  )}
                 </div>
               </div>
             ))}

@@ -265,11 +265,6 @@ const StudentGuide = () => {
           100% { background-position: 0% 50%; }
         }
 
-        a:hover {
-          // background-color: #e0f2f1 !important;
-          color: #004d40 !important;
-        }
-
         img:hover, .iconWrapper:hover {
           transform: scale(1.1);
         }
