@@ -75,7 +75,7 @@ function FeedbackDisplay() {
                 👤 {fb.name} <span style={styles.id}>({fb.college_id})</span>
               </h3>
               <p style={styles.message}> {fb.message}</p>
-              <small style={styles.time}> {new Date(fb.submitted_at).toLocaleString()}</small>
+              <small style={styles.time}> {new Date(fb.submitted_at).toLocaleDateString()}</small>
               {isAdmin && (
                 <button
                   style={styles.deleteBtn}

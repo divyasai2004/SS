@@ -33,7 +33,7 @@ const Home = () => {
       <p style={styles.typewriterLine}>
         <strong>
           <Typewriter
-            words={['Seal your success, 1 subject at a time.']}
+            words={['Seal your success, one subject at a time.']}
             loop={0}
             cursor
             cursorStyle="|"

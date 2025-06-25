@@ -119,7 +119,7 @@ function Notes() {
                   <span style={styles.tag}>Sem {note.semester}</span>
                 </p>
                 <a href={note.file_url} target="_blank" rel="noopener noreferrer" style={styles.download}>
-                  Download
+                  View & Download
                 </a>
 
                 {role === 'admin' && note.id && (
