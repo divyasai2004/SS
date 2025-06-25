@@ -316,7 +316,7 @@ const Home = () => {
       </h1>
 
       <p style={styles.description}>
-        Empowering <strong style={styles.highlightText}>BSc IT</strong> & <strong style={styles.highlightText}>CS students</strong> with crystal-clear notes!
+        Empowering <strong style={styles.highlightText}>BSc IT</strong> & <strong style={styles.highlightText}>CS </strong>students with crystal-clear notes!
       </p>
 
       <div style={styles.typewriterContainer}>
