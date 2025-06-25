@@ -36,7 +36,7 @@ SyllabusSeal is a beautifully designed, responsive web platform created to empow
 
 ## 🚀 Live Demo
 
- [Visit SyllabusSeal on Vercel](https://syllabus-seal.vercel.app/)
+ [Visit SyllabusSeal on Vercel](https://syllabusseal-ss.vercel.app/)
 
 ---
 
