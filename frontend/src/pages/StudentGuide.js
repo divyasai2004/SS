@@ -218,17 +218,73 @@ const StudentGuide = () => {
           100% { transform: translateX(100%); }
         }
 
+        @keyframes socialFloat {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          25% { transform: translateY(-8px) rotate(2deg); }
+          50% { transform: translateY(-4px) rotate(-1deg); }
+          75% { transform: translateY(-12px) rotate(1deg); }
+        }
+
+        @keyframes socialGlow {
+          0%, 100% { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
+          50% { box-shadow: 0 12px 40px rgba(45, 182, 209, 0.3), 0 0 30px rgba(25, 4, 81, 0.2); }
+        }
+
+        @keyframes iconSpin {
+          0% { transform: rotate(0deg) scale(1); }
+          25% { transform: rotate(-5deg) scale(1.1); }
+          50% { transform: rotate(0deg) scale(1.05); }
+          75% { transform: rotate(5deg) scale(1.1); }
+          100% { transform: rotate(0deg) scale(1); }
+        }
+
+        @keyframes socialPulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+        }
+
+        @keyframes gradientRotate {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
         .link-card:hover .link-arrow {
           transform: translateX(5px);
         }
 
+        .social-card {
+          animation: socialFloat 4s ease-in-out infinite, socialGlow 3s ease-in-out infinite;
+        }
+
+        .social-card:nth-child(1) {
+          animation-delay: 0s;
+        }
+
+        .social-card:nth-child(2) {
+          animation-delay: 0.5s;
+        }
+
+        .social-card:nth-child(3) {
+          animation-delay: 1s;
+        }
+
         .social-card:hover {
-          transform: translateY(-8px) scale(1.05);
+          transform: translateY(-15px) scale(1.1);
+          animation-play-state: paused;
         }
 
         .social-card:hover .social-glow {
           opacity: 1;
-          transform: scale(1.2);
+          transform: scale(1.3);
+        }
+
+        .social-card:hover .social-icon-wrapper {
+          animation: iconSpin 0.6s ease-in-out;
+        }
+
+        .social-icon-wrapper {
+          animation: socialPulse 2s ease-in-out infinite;
         }
 
         @media (max-width: 768px) {
@@ -237,7 +293,7 @@ const StudentGuide = () => {
           }
           
           .social-grid {
-            gap: 1.5rem !important;
+            gap: 1rem !important;
           }
 
           .heading {
@@ -485,7 +541,7 @@ const styles = {
   socialGrid: {
     display: 'flex',
     justifyContent: 'center',
-    gap: '2.5rem'
+    gap: '1.5rem'
   },
   socialLink: {
     textDecoration: 'none'
@@ -495,15 +551,16 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     padding: '1.5rem',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
     borderRadius: '20px',
-    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-    backdropFilter: 'blur(15px)',
-    border: '1px solid rgba(255, 255, 255, 0.3)',
+    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+    backdropFilter: 'blur(20px)',
+    border: '1px solid rgba(255, 255, 255, 0.4)',
     boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
     position: 'relative',
     overflow: 'hidden',
-    minWidth: '120px'
+    minWidth: '120px',
+    cursor: 'pointer'
   },
   socialIconWrapper: {
     width: '60px',
@@ -511,10 +568,13 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: 'linear-gradient(135deg, rgba(45, 182, 209, 0.1), rgba(25, 4, 81, 0.1))',
+    background: 'linear-gradient(135deg, rgba(45, 182, 209, 0.15), rgba(25, 4, 81, 0.15), rgba(128, 197, 216, 0.1))',
+    backgroundSize: '200% 200%',
     borderRadius: '50%',
     marginBottom: '1rem',
-    transition: 'all 0.3s ease'
+    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+    position: 'relative',
+    overflow: 'hidden'
   },
   socialIcon: {
     width: '32px',
@@ -532,11 +592,12 @@ const styles = {
     left: 0,
     right: 0,
     bottom: 0,
-    background: 'linear-gradient(135deg, rgba(45, 182, 209, 0.2), rgba(25, 4, 81, 0.2))',
+    background: 'linear-gradient(135deg, rgba(45, 182, 209, 0.25), rgba(25, 4, 81, 0.25), rgba(128, 197, 216, 0.2))',
     borderRadius: '20px',
     opacity: 0,
-    transition: 'all 0.3s ease',
-    zIndex: -1
+    transition: 'all 0.4s ease',
+    zIndex: -1,
+    filter: 'blur(1px)'
   }
 };
 
